@@ -3,10 +3,14 @@ var soundPlayed = false;
 var startTime;
 var amp, level;
 var soundFile, fft;
+var stars;
+var space;
 
 function preload() {
   everglow = loadSound("everglow.mp3");
   soundFile = loadSound('everglow.mp3');
+  stars = loadImage("stars.gif");
+  space = loadImage("space.gif");
 }
 
 function setup() {
@@ -24,10 +28,10 @@ function mousePressed() {
 }
 
 function draw() {
-  background(220);
+  background(0);
   noStroke();
   level = amp.getLevel();
-  mappedColor = map(level, 0, 1, 0, 255);
+  // mappedColor = map(level, 0, 1, 0, 255);
   cSize = map(level, 0, 1, 0, 1000);
   
   var spectrum = fft.analyze();
@@ -47,15 +51,15 @@ function draw() {
   //   ellipse(width / 2, height / 2, 50, 50);
   // }
 
-  let lerping = lerpColor(color("red"), color("blue"), level)
+  // let lerping = lerpColor(color("red"), color("blue"), level)
 
-  if (startTime > 6000) {
-    for (var i = 0; i < width; i++) {
-      grad1 = lerpColor(color("purple"), color("yellow"), level);
-      stroke(grad1);
-      line(i, 0, i, height);
-    }
-  }
+  // if (startTime > 6000) {
+  //   for (var i = 0; i < width; i++) {
+  //     grad1 = lerpColor(color("purple"), color("yellow"), level);
+  //     stroke(grad1);
+  //     line(i, 0, i, height);
+  //   }
+  // }
 
   fill(0);
   circle(width / 2, 580 / 2, cSize);
