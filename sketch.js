@@ -58,14 +58,15 @@ function draw() {
   }
 
   fill(0);
-  circle(windowWidth / 2, 580 / 2, cSize);
-  // circle(2900 / 2, 1000 / 2, cSize);
+  circle(width / 2, 580 / 2, cSize);
 
   fill(216,133,192);
-  // circle(windowWidth/1.75, windowHeight/4, trebleVol);
-  circle(windowWidth/10, windowHeight/1.5, midVol);
-  circle(178, 123, bassVol/2);
-  circle(1174, 123, bassVol/2);
+  circle(322, 81, bassVol/2);
+  circle(1043, 81, bassVol/2);
+  circle(217, 285, midVol);
+  circle(1130, 285, midVol);
+  circle(322, 484, trebleVol);
+  circle(1043, 484, trebleVol);
 
   // if (millis() - startTime > 3000) {
   //   ellipse(width / 2, height / 2, 50);
