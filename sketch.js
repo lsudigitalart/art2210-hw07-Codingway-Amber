@@ -102,7 +102,7 @@ function displayLyrics() {
   for (let i = 0; i < lyrics.length; i++) {
     let lyric = lyrics[i];
     if (currentTime > lyric.startTime && currentTime < lyric.endTime) {
-      fill(255); // Set text color to white
+      fill(255);
       textSize(32);
       textAlign(CENTER, CENTER);
       text(lyric.text, width / 2, height / 2);
