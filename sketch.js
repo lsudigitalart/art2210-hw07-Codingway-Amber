@@ -1,5 +1,6 @@
 var everglow;
 var soundPlayed = false;
+var showImage = false;
 var startTime;
 var amp, level;
 var soundFile, fft;
@@ -16,7 +17,6 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, 580);
   getAudioContext().suspend();
-  startTime = millis();
   amp = new p5.Amplitude();
   fft = new p5.FFT();
   fft.setInput(soundFile);
@@ -25,58 +25,59 @@ function setup() {
 
 function mousePressed() {
   userStartAudio();
+  showImage = true;
+  startTime = millis();
 }
 
 function draw() {
   background(0);
   noStroke();
   level = amp.getLevel();
-  // mappedColor = map(level, 0, 1, 0, 255);
   cSize = map(level, 0, 1, 0, 1000);
   
   var spectrum = fft.analyze();
-  // var bassEnergy = fft.getEnergy("bass");
   var trebleVol = fft.getEnergy("treble");
   var midVol = fft.getEnergy("mid");
   var bassVol = fft.getEnergy("bass");
-  // var threshold = 200;
 
   if (!soundPlayed) {
     everglow.play();
     soundPlayed = true;
   }
-  
-  // if (bassEnergy > threshold) {
-  //   fill(255, 0, 0);
-  //   ellipse(width / 2, height / 2, 50, 50);
-  // }
 
-  // let lerping = lerpColor(color("red"), color("blue"), level)
+  if (showImage) {
+    if (millis() - startTime > 18700 && millis() - startTime < 25000) {
+      image(stars, 0, 0, windowWidth, 700);
+    }
+  }
 
-  // if (startTime > 6000) {
-  //   for (var i = 0; i < width; i++) {
-  //     grad1 = lerpColor(color("purple"), color("yellow"), level);
-  //     stroke(grad1);
-  //     line(i, 0, i, height);
-  //   }
-  // }
+  if (showImage) {
+    if (millis() - startTime > 25000 && millis() - startTime < 36500) {
+      image(space, 0, 0, windowWidth, windowHeight);
+    }
+  }
 
+  let colorStart = color(220); // (white)
+  let colorEnd = color(1, 3, 130); // (dark blue)
+  let lerping = lerpColor(colorStart, colorEnd, level);
+
+ if (millis() - startTime > 36500) {
+  fill(220);
+} else {
   fill(0);
+}
   circle(width / 2, 580 / 2, cSize);
 
-  fill(216,133,192);
-  circle(322, 81, bassVol/2);
-  circle(1043, 81, bassVol/2);
-  circle(217, 285, midVol);
-  circle(1130, 285, midVol);
+  fill(lerping);
+  circle(322, 81, midVol/2);
+  circle(1043, 81, midVol/2);
+  circle(217, 285, bassVol);
+  circle(1130, 285, bassVol);
   circle(322, 484, trebleVol);
   circle(1043, 484, trebleVol);
 
-  // if (millis() - startTime > 3000) {
-  //   ellipse(width / 2, height / 2, 50);
-  //   }
   push()
-  fill(0)
+  fill(255)
   text(mouseX, 0, 240); 
   text(mouseY, 0, 260);
   pop()
